@@ -25,6 +25,19 @@ class Position(BaseModel):
     notes: str | None = None
 
 
+class LifeFinance(BaseModel):
+    """生活侧经济情况 — 服务投资决策，不是记账本。"""
+
+    income_monthly: str | None = None
+    expenses_monthly: str | None = None
+    emergency_fund: str | None = None
+    cash_buffer: str | None = None
+    liabilities: list[str] = Field(default_factory=list)
+    dependents: str | None = None
+    life_goals: str | None = None
+    notes: str | None = None
+
+
 class InvestorProfile(BaseModel):
     goals: str | None = None
     horizon: str | None = None
@@ -32,8 +45,52 @@ class InvestorProfile(BaseModel):
     circle_of_competence: list[str] = Field(default_factory=list)
     taboos: list[str] = Field(default_factory=list)
     positions: list[Position] = Field(default_factory=list)
+    life: LifeFinance = Field(default_factory=LifeFinance)
     notes: str | None = None
     updated_at: datetime = Field(default_factory=utc_now)
+
+
+class ChatMessage(BaseModel):
+    role: Literal["user", "assistant", "system"]
+    content: str
+    ts: datetime = Field(default_factory=utc_now)
+    mode: Literal["broad", "company"] | None = None
+
+
+class ChatSession(BaseModel):
+    id: str
+    title: str = "默认会话"
+    messages: list[ChatMessage] = Field(default_factory=list)
+    summary: str = ""
+    summarized_until: int = 0  # number of messages already folded into summary
+    created_at: datetime = Field(default_factory=utc_now)
+    updated_at: datetime = Field(default_factory=utc_now)
+
+    def as_history_dicts(self, limit: int = 30) -> list[dict[str, str]]:
+        msgs = self.messages[-limit:]
+        return [{"role": m.role, "content": m.content} for m in msgs]
+
+    def working_context(self, recent_limit: int = 12) -> str:
+        """Summary (long-term session) + recent raw turns (working memory)."""
+        parts: list[str] = []
+        if self.summary.strip():
+            parts.append(f"【会话摘要】\n{self.summary.strip()}")
+        recent = self.as_history_dicts(limit=recent_limit)
+        if recent:
+            lines = [f"{m['role']}: {m['content']}" for m in recent]
+            parts.append("【近期对话】\n" + "\n".join(lines))
+        return "\n\n".join(parts) if parts else "（无会话记忆）"
+
+
+class MemoryEntry(BaseModel):
+    """Episodic / semantic memory item for retrieval."""
+
+    id: str
+    text: str
+    tags: list[str] = Field(default_factory=list)
+    source_session: str | None = None
+    kind: str = "episodic"
+    created_at: datetime = Field(default_factory=utc_now)
 
 
 class PrincipleItem(BaseModel):
@@ -131,7 +188,11 @@ class ChatResponse(BaseModel):
     reply: str
     mode: Literal["broad", "company"]
     symbol: str | None = None
+    route_reason: str | None = None
+    profile_updates: list[str] = Field(default_factory=list)
     tool_calls: list[str] = Field(default_factory=list)
     review: ReviewResult | None = None
     thesis: ThesisCard | None = None
     profile: InvestorProfile | None = None
+    trace: str | None = None
+    streamed: bool = False

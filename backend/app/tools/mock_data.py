@@ -47,6 +47,34 @@ MOCK_COMPANIES: dict[str, dict[str, Any]] = {
         "revenue_b_usd": 383.0,
         "net_profit_b_usd": 97.0,
     },
+    "00700": {
+        "symbol": "00700",
+        "name": "腾讯控股",
+        "aliases": ["腾讯", "tencent", "0700.HK", "00700.HK", "hk00700"],
+        "industry": "互联网",
+        "business": "社交、游戏、金融科技与云服务等，港交所上市。",
+        "last_price": 470.0,
+        "currency": "HKD",
+        "pe_ttm": 16.5,
+        "roe_pct": 21.0,
+        "gross_margin_pct": 56.0,
+        "revenue_yi": 6600.0,
+        "net_profit_yi": 1900.0,
+    },
+    "09988": {
+        "symbol": "09988",
+        "name": "阿里巴巴-W",
+        "aliases": ["阿里", "阿里巴巴", "alibaba", "9988.HK", "09988.HK"],
+        "industry": "电商",
+        "business": "电商、云与本地生活等，港交所上市。",
+        "last_price": 110.0,
+        "currency": "HKD",
+        "pe_ttm": 19.0,
+        "roe_pct": 10.0,
+        "gross_margin_pct": 40.0,
+        "revenue_yi": 9000.0,
+        "net_profit_yi": 800.0,
+    },
 }
 
 
@@ -60,11 +88,18 @@ def resolve_symbol(text: str) -> tuple[str, dict[str, Any]] | None:
         for alias in data["aliases"]:
             if alias.lower() in lowered:
                 return symbol, data
-    # Bare 6-digit CN ticker
+    # Bare 6-digit CN / 5-digit HK in mock universe
     import re
 
     m = re.search(r"\b(\d{6})\b", text)
     if m and m.group(1) in MOCK_COMPANIES:
         sym = m.group(1)
         return sym, MOCK_COMPANIES[sym]
+    m = re.search(r"\b(\d{5})\b", text) or re.search(r"\b(\d{1,5})\.HK\b", text, re.I)
+    if m:
+        from app.tools.cn_a_share import normalize_hk_symbol
+
+        hk = normalize_hk_symbol(m.group(0) if ".HK" in m.group(0).upper() else m.group(1))
+        if hk and hk in MOCK_COMPANIES:
+            return hk, MOCK_COMPANIES[hk]
     return None

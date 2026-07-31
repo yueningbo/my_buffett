@@ -8,8 +8,5 @@ backend/data/*
 !backend/data/.gitkeep
 backend/.pytest_cache/
 .pytest_cache/
-web/node_modules/
-web/dist/
 *.egg-info/
 .DS_Store
-web/tsconfig.tsbuildinfo

@@ -6,8 +6,9 @@
 
 | 层 | 选型 |
 |---|---|
-| Agent / API | Python 3.11+、FastAPI、LangGraph、Pydantic |
-| 薄 Web | Vite + React + TypeScript |
+| Agent | Python 3.11+、LangGraph、Pydantic |
+| 本地前端 | CLI（`python -m app.cli`） |
+| 可选 API | FastAPI（脚本 / 集成） |
 | 存储 MVP | 本地 JSON（档案、论点卡、审查快照） |
 | LLM | OpenAI 兼容 API（`OPENAI_API_KEY`）；无 key 时确定性 mock 导师 |
 
@@ -15,22 +16,22 @@
 
 ```
 backend/app/
-  api/          # HTTP：/chat, /profile, /thesis
-  domain/       # 契约：Profile, Review, Thesis, ToolResult
-  principles/   # 清单 + 审查引擎（pass/concern/veto）
-  tools/        # 工具契约 + Mock 实现
-  agent/        # LangGraph：route → coach | research+review
-  store/        # JSON 读写
-web/            # 对话入口 + 右侧审查 / 论点卡
+  cli.py        # 本地长期对话入口（主前端）
+  api/          # 可选 HTTP
+  domain/       # Profile(+LifeFinance), Session, Review, Thesis…
+  principles/   # 清单 + 审查引擎
+  tools/        # 工具契约 + Mock
+  agent/        # classify → profile extract → coach | research
+  store/        # profile / sessions / thesis / reviews JSON
 ```
 
 ## 运行时流程
 
 ```mermaid
 flowchart TD
-  userMsg[UserMessage] --> router[ModeRouter]
-  router -->|broad| coach[CoachWorkflow]
-  router -->|company| research[ResearchSubgraph]
+  userMsg[UserMessage] --> classify[IntentClassify]
+  classify -->|broad| coach[CoachWorkflow]
+  classify -->|company| research[ResearchSubgraph]
   coach --> profile[InvestorProfile]
   coach --> principles[PrincipleCoach]
   research --> tools[ToolContracts]
@@ -42,22 +43,24 @@ flowchart TD
   thesis --> reply
 ```
 
-## 两档路由（硬护栏）
+## 两档路由
 
-| 模式 | 触发 | 允许 | 禁止 |
-|---|---|---|---|
-| `broad` | 无明确标的 | 档案 + 原则教练 | 行情 / 财报 / 筛股工具 |
-| `company` | ticker / 「看看 XX」 | 工具 + 审查 + 论点卡 | 空聊荐股；编造数字 |
+| 层 | 谁做 | 规则 |
+|---|---|---|
+| 意图分类 | LLM 结构化输出 `{mode, symbol_hint}`；无 key / 失败时启发式 fallback | 理解「聊什么」 |
+| 标的补全 | `resolve_symbol` / ticker 表 | 校验与归一化 hint |
+| **硬护栏** | `run_tool(..., mode=)` | `broad` **禁止**行情/财报/筛股；不靠模型自觉 |
+| 数字真源 | 原则引擎 | `company` 审查数字 ⊆ 当次 `ToolResult.numbers` |
 
-路由由规则判定（正则 / 标的表），不靠模型自觉。`company` 下审查结果中的关键数字必须 ⊆ 当次 `ToolResult.numbers`。
+`broad`：档案 + 原则教练。`company`：工具 + 审查 + 论点卡。分类失败时 fallback 仅在有标的证据时进 company，避免寒暄误触发工具。
 
 ## Context 分层
 
-1. **System**：导师角色 + 不做清单（极简）
-2. **Profile**：投资者档案摘要
-3. **Session**：近几轮对话
-4. **Evidence**（仅 company）：工具回传摘要，带 `evidence_refs`
-5. **Review / Thesis**：结构化结果，供 UI 与下次接着教
+1. **Profile（语义/事实）**：投资者档案 + 生活财务，几乎每轮注入
+2. **Session summary（压缩工作记忆）**：长对话滚动摘要
+3. **Episodic memories（检索）**：`memories.jsonl` + BM25 Top-K
+4. **Recent window**：近若干轮原文
+5. **Artifacts**：论点卡 / 审查 / 工具证据（company 路径）
 
 开放式研究用子图，只把摘要写回主 context，避免膨胀。
 
