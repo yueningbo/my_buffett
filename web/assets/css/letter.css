@@ -774,6 +774,24 @@ body[data-view="split"] .panel-guide {
   line-height: 1.5;
 }
 
+.original-body .table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25rem 0 1.75rem;
+}
+
+.original-body .table-scroll table {
+  margin: 0;
+  min-width: 32rem;
+}
+
+@media (max-width: 640px) {
+  .original-body table.nums {
+    font-size: 0.82rem;
+  }
+}
+
+
 .original-body th,
 .original-body td {
   text-align: left;
@@ -796,6 +814,48 @@ body[data-view="split"] .panel-guide {
   text-align: right;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+.original-body table.nums th:not(:first-child),
+.original-body table.nums td:not(:first-child) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.original-body table.nums td:first-child,
+.original-body table.nums th:first-child {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.original-body ol,
+.original-body ul {
+  margin: 1rem 0 1.65rem;
+  padding-left: 1.4rem;
+}
+
+.original-body li {
+  margin-bottom: 0.85rem;
+  line-height: 1.72;
+  padding-left: 0.15rem;
+}
+
+.original-body li:last-child {
+  margin-bottom: 0;
+}
+
+.original-body ol ol,
+.original-body ul ul {
+  margin: 0.65rem 0 0.35rem;
+}
+
+.original-body .table-note {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: -1rem 0 1.75rem;
+  line-height: 1.55;
 }
 
 .doc-note {

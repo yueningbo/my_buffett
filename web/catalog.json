@@ -121,8 +121,28 @@
       "aum_detail": "1962 年初净资产 $7,178,500；沃伦与苏茜约 $103 万",
       "market_mood": "强劲上涨年——按他自己的尺子，本该最难跑赢",
       "thread_note": "五年累计合伙约 +251% vs 道指 +74%；目标仍是长期年均高出道指约 10 个百分点。"
+    },
+    {
+      "year": 1962,
+      "era": "partnership",
+      "era_label": "Partnership era",
+      "status": "ready",
+      "title": "大跌年兑现预言：道指亏，合伙赚，并写出 Ground Rules",
+      "blurb": "熊市超额 · Ground Rules · Dempster + Harry",
+      "href": "years/1962/index.html",
+      "prev": 1961,
+      "next": 1963,
+      "age": "31–32",
+      "dow_display": "−7.6%",
+      "dow_detail": "含股息 · 731→652；年中低点约 535",
+      "partnership_display": "+13.9%",
+      "partnership_detail": "BPL；LP 约 +11.9%。六年累计合伙约 +299.8% vs 道指 +61.6%",
+      "aum_display": "约 $941 万",
+      "aum_detail": "1963 年初净资产 $9,405,400；年初约 $718 万",
+      "market_mood": "年中急跌、年末反弹；高飞股梦碎，相对尺子再次显灵",
+      "thread_note": "他预言过下跌年相对闪光——1962 交卷；并警告十年内仍可能再来一次更深的大跌。"
     }
   ],
-  "ready_count": 6,
-  "total": 6
+  "ready_count": 7,
+  "total": 7
 }

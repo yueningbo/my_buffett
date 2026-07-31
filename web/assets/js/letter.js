@@ -1,6 +1,6 @@
 /**
  * Buffett Letters — year page + index interactions
- * Views: guide | zh | en | split
+ * Views: guide | zh
  * Theme: light | dark
  * Terms: data-term="id" → assets/glossary.json (local data-term-title/body override)
  */
@@ -11,9 +11,8 @@
   const panels = {
     guide: document.querySelector(".panel-guide"),
     zh: document.querySelector(".panel-zh"),
-    en: document.querySelector(".panel-en"),
   };
-  const VALID = ["guide", "zh", "en", "split"];
+  const VALID = ["guide", "zh"];
   const THEME_KEY = "buffett-letter-theme";
   const VIEW_KEY = "buffett-letter-view";
 
@@ -43,7 +42,7 @@
   }
 
   function normalize(view) {
-    if (view === "original") return "zh";
+    if (view === "original" || view === "en" || view === "split") return "zh";
     return VALID.includes(view) ? view : "guide";
   }
 
@@ -56,13 +55,7 @@
     });
 
     Object.values(panels).forEach((p) => p?.classList.remove("is-active"));
-
-    if (next === "split") {
-      panels.zh?.classList.add("is-active");
-      panels.en?.classList.add("is-active");
-    } else if (panels[next]) {
-      panels[next].classList.add("is-active");
-    }
+    if (panels[next]) panels[next].classList.add("is-active");
 
     try {
       localStorage.setItem(VIEW_KEY, next);
@@ -506,13 +499,18 @@
       h: Number(bar.getAttribute("height")),
       y: Number(bar.getAttribute("data-y") || bar.getAttribute("y")),
     }));
-    bars.forEach(({ el }) => {
-      el.setAttribute("y", String(zeroY));
-      el.setAttribute("height", "0");
-    });
 
+    // Keep authored heights until animation starts, so charts never stay blank
+    // if IntersectionObserver never hits a high threshold (short viewports, etc.).
     const ease = (t) => 1 - Math.pow(1 - t, 3);
+    let ran = false;
     const run = () => {
+      if (ran) return;
+      ran = true;
+      bars.forEach(({ el }) => {
+        el.setAttribute("y", String(zeroY));
+        el.setAttribute("height", "0");
+      });
       bars.forEach((bar, i) => {
         const start = performance.now() + i * 90;
         const dur = 700;
@@ -539,7 +537,7 @@
             io.disconnect();
           }
         },
-        { threshold: 0.3 }
+        { threshold: 0, rootMargin: "48px 0px" }
       );
       io.observe(svg);
     } else {

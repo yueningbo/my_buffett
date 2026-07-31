@@ -8,7 +8,7 @@
     1. 复制本目录为 web/years/YYYY/
     2. 改 meta.json（year / title / lede / blurb / prev / next / status）
        以及主线字段：dow_display / partnership_display / aum_display / age / market_mood
-    3. 改本文件里的标题、导读、中文、英文；情景卡内保留 <div data-thread-metrics></div>
+    3. 改本文件里的标题、导读、中文（须忠实 data/letters 英文源，不增删改）；情景卡内保留 <div data-thread-metrics></div>
     4. 术语优先写：<button class="term" data-term="workout">work-out</button>
        释义在 web/assets/glossary.json；若要本年特供，可再加 data-term-title / data-term-body 覆盖
     5. 组件类名：
@@ -20,7 +20,7 @@
     6. python3 web/tools/sync_catalog.py  → 更新首页目录
   -->
   <title>YYYY · Buffett Letter</title>
-  <meta name="description" content="巴菲特股东信 YYYY：导读、中文译文与英文原文。" />
+  <meta name="description" content="巴菲特股东信 YYYY：导读与中文译文。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
@@ -64,8 +64,6 @@
       <div class="view-switch" role="tablist" aria-label="阅读模式">
         <button type="button" role="tab" data-view="guide" aria-selected="true">导读</button>
         <button type="button" role="tab" data-view="zh" aria-selected="false">中文</button>
-        <button type="button" role="tab" data-view="en" aria-selected="false">英文</button>
-        <button type="button" role="tab" data-view="split" aria-selected="false">中英对照</button>
       </div>
       <div class="year-meta">Warren E. Buffett · Omaha · YYYY</div>
     </div>
@@ -129,20 +127,7 @@
         <p>译文…</p>
       </div>
     </article>
-
-    <article class="panel panel-en" aria-label="英文原文">
-      <p class="panel-kicker">Original letter</p>
-      <h2 class="panel-heading">English title</h2>
-      <div class="original-body">
-        <div class="original-meta">
-          <strong>Warren E. Buffett</strong>
-          Source note
-        </div>
-        <h2>Section</h2>
-        <p>Original text…</p>
-      </div>
-    </article>
-  </div>
+</div>
 
   <nav class="year-pager" aria-label="相邻年份">
     <!-- 与 meta.json 的 prev / next 保持一致 -->
