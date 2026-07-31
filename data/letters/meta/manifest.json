@@ -1,0 +1,921 @@
+{
+  "title": "Buffett / Berkshire letters collection",
+  "layout": {
+    "years/": "One folder per year; primary file is letter.md / letter.html / letter.pdf",
+    "compilations/": "Bulk archives",
+    "meta/": "Source index pages and this manifest"
+  },
+  "coverage": {
+    "from": 1957,
+    "to": 2025,
+    "years_count": 69,
+    "missing": [
+      2026
+    ]
+  },
+  "copyright_note": "Official Berkshire letters are copyrighted; partnership/early material from public archives. Personal/research use only.",
+  "compilations": [
+    "compilations/partnership-1957-1969.pdf",
+    "compilations/berkshire-1965-2012.epub"
+  ],
+  "years": [
+    {
+      "year": 1957,
+      "era": "partnership",
+      "primary": "years/1957/letter.md",
+      "files": [
+        "years/1957/letter.md",
+        "years/1957/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1958,
+      "era": "partnership",
+      "primary": "years/1958/letter.md",
+      "files": [
+        "years/1958/letter.md",
+        "years/1958/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1959,
+      "era": "partnership",
+      "primary": "years/1959/letter.md",
+      "files": [
+        "years/1959/letter.md",
+        "years/1959/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1960,
+      "era": "partnership",
+      "primary": "years/1960/letter.md",
+      "files": [
+        "years/1960/letter.md",
+        "years/1960/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1961,
+      "era": "partnership",
+      "primary": "years/1961/letter-19610722.md",
+      "files": [
+        "years/1961/letter-19610722.md",
+        "years/1961/letter-19610722.pdf",
+        "years/1961/letter-19620124.md",
+        "years/1961/letter-19620124.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1962,
+      "era": "partnership",
+      "primary": "years/1962/letter-19620706.md",
+      "files": [
+        "years/1962/letter-19620706.md",
+        "years/1962/letter-19620706.pdf",
+        "years/1962/letter-19621101.md",
+        "years/1962/letter-19621101.pdf",
+        "years/1962/letter-19630118.md",
+        "years/1962/letter-19630118.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1963,
+      "era": "partnership",
+      "primary": "years/1963/letter-19630710.md",
+      "files": [
+        "years/1963/letter-19630710.md",
+        "years/1963/letter-19630710.pdf",
+        "years/1963/letter-19631106.md",
+        "years/1963/letter-19631106.pdf",
+        "years/1963/letter-19640118.md",
+        "years/1963/letter-19640118.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1964,
+      "era": "partnership",
+      "primary": "years/1964/letter-19640708.md",
+      "files": [
+        "years/1964/letter-19640708.md",
+        "years/1964/letter-19640708.pdf",
+        "years/1964/letter-19650118.md",
+        "years/1964/letter-19650118.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1965,
+      "era": "partnership",
+      "primary": "years/1965/letter-19650709.md",
+      "files": [
+        "years/1965/letter-19650709.md",
+        "years/1965/letter-19650709.pdf",
+        "years/1965/letter-19651101.md",
+        "years/1965/letter-19651101.pdf",
+        "years/1965/letter-19660120.md",
+        "years/1965/letter-19660120.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1966,
+      "era": "partnership",
+      "primary": "years/1966/letter-19660712.md",
+      "files": [
+        "years/1966/letter-19660712.md",
+        "years/1966/letter-19660712.pdf",
+        "years/1966/letter-19661101.md",
+        "years/1966/letter-19661101.pdf",
+        "years/1966/letter-19670125.md",
+        "years/1966/letter-19670125.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1967,
+      "era": "partnership",
+      "primary": "years/1967/letter-19670712.md",
+      "files": [
+        "years/1967/letter-19670712.md",
+        "years/1967/letter-19670712.pdf",
+        "years/1967/letter-19671009.md",
+        "years/1967/letter-19671009.pdf",
+        "years/1967/letter-19671101.md",
+        "years/1967/letter-19671101.pdf",
+        "years/1967/letter-19680124.md",
+        "years/1967/letter-19680124.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1968,
+      "era": "partnership",
+      "primary": "years/1968/letter-19680711.md",
+      "files": [
+        "years/1968/letter-19680711.md",
+        "years/1968/letter-19680711.pdf",
+        "years/1968/letter-19681101.md",
+        "years/1968/letter-19681101.pdf",
+        "years/1968/letter-19690122.md",
+        "years/1968/letter-19690122.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1969,
+      "era": "partnership",
+      "primary": "years/1969/letter-19690529.md",
+      "files": [
+        "years/1969/letter-19690529.md",
+        "years/1969/letter-19690529.pdf",
+        "years/1969/letter-19691009.md",
+        "years/1969/letter-19691009.pdf",
+        "years/1969/letter-19691205.md",
+        "years/1969/letter-19691205.pdf",
+        "years/1969/letter-19691226.md",
+        "years/1969/letter-19691226.pdf",
+        "years/1969/letter-19700225.md",
+        "years/1969/letter-19700225.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1970,
+      "era": "berkshire-early",
+      "primary": "years/1970/letter.md",
+      "files": [
+        "years/1970/letter.md",
+        "years/1970/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1971,
+      "era": "berkshire-early",
+      "primary": "years/1971/letter.md",
+      "files": [
+        "years/1971/letter.md",
+        "years/1971/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1972,
+      "era": "berkshire-early",
+      "primary": "years/1972/letter.md",
+      "files": [
+        "years/1972/letter.md",
+        "years/1972/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1973,
+      "era": "berkshire-early",
+      "primary": "years/1973/letter.md",
+      "files": [
+        "years/1973/letter.md",
+        "years/1973/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1974,
+      "era": "berkshire-early",
+      "primary": "years/1974/letter.md",
+      "files": [
+        "years/1974/letter.md",
+        "years/1974/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1975,
+      "era": "berkshire-early",
+      "primary": "years/1975/letter.md",
+      "files": [
+        "years/1975/letter.md",
+        "years/1975/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1976,
+      "era": "berkshire-early",
+      "primary": "years/1976/letter.md",
+      "files": [
+        "years/1976/letter.md",
+        "years/1976/letter.pdf"
+      ],
+      "formats": [
+        "md",
+        "pdf"
+      ]
+    },
+    {
+      "year": 1977,
+      "era": "berkshire",
+      "primary": "years/1977/letter.html",
+      "files": [
+        "years/1977/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1978,
+      "era": "berkshire",
+      "primary": "years/1978/letter.html",
+      "files": [
+        "years/1978/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1979,
+      "era": "berkshire",
+      "primary": "years/1979/letter.html",
+      "files": [
+        "years/1979/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1980,
+      "era": "berkshire",
+      "primary": "years/1980/letter.html",
+      "files": [
+        "years/1980/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1981,
+      "era": "berkshire",
+      "primary": "years/1981/letter.html",
+      "files": [
+        "years/1981/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1982,
+      "era": "berkshire",
+      "primary": "years/1982/letter.html",
+      "files": [
+        "years/1982/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1983,
+      "era": "berkshire",
+      "primary": "years/1983/letter.html",
+      "files": [
+        "years/1983/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1984,
+      "era": "berkshire",
+      "primary": "years/1984/letter.html",
+      "files": [
+        "years/1984/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1985,
+      "era": "berkshire",
+      "primary": "years/1985/letter.html",
+      "files": [
+        "years/1985/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1986,
+      "era": "berkshire",
+      "primary": "years/1986/letter.html",
+      "files": [
+        "years/1986/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1987,
+      "era": "berkshire",
+      "primary": "years/1987/letter.html",
+      "files": [
+        "years/1987/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1988,
+      "era": "berkshire",
+      "primary": "years/1988/letter.html",
+      "files": [
+        "years/1988/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1989,
+      "era": "berkshire",
+      "primary": "years/1989/letter.html",
+      "files": [
+        "years/1989/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1990,
+      "era": "berkshire",
+      "primary": "years/1990/letter.html",
+      "files": [
+        "years/1990/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1991,
+      "era": "berkshire",
+      "primary": "years/1991/letter.html",
+      "files": [
+        "years/1991/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1992,
+      "era": "berkshire",
+      "primary": "years/1992/letter.html",
+      "files": [
+        "years/1992/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1993,
+      "era": "berkshire",
+      "primary": "years/1993/letter.html",
+      "files": [
+        "years/1993/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1994,
+      "era": "berkshire",
+      "primary": "years/1994/letter.html",
+      "files": [
+        "years/1994/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1995,
+      "era": "berkshire",
+      "primary": "years/1995/letter.html",
+      "files": [
+        "years/1995/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1996,
+      "era": "berkshire",
+      "primary": "years/1996/letter.html",
+      "files": [
+        "years/1996/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1997,
+      "era": "berkshire",
+      "primary": "years/1997/letter.html",
+      "files": [
+        "years/1997/letter.html"
+      ],
+      "formats": [
+        "html"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1998,
+      "era": "berkshire",
+      "primary": "years/1998/letter.pdf",
+      "files": [
+        "years/1998/letter.pdf",
+        "years/1998/note.html"
+      ],
+      "formats": [
+        "html",
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 1999,
+      "era": "berkshire",
+      "primary": "years/1999/letter.pdf",
+      "files": [
+        "years/1999/letter.pdf",
+        "years/1999/note.html"
+      ],
+      "formats": [
+        "html",
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2000,
+      "era": "berkshire",
+      "primary": "years/2000/letter.pdf",
+      "files": [
+        "years/2000/letter.pdf",
+        "years/2000/note.html"
+      ],
+      "formats": [
+        "html",
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2001,
+      "era": "berkshire",
+      "primary": "years/2001/letter.pdf",
+      "files": [
+        "years/2001/letter.pdf",
+        "years/2001/note.html"
+      ],
+      "formats": [
+        "html",
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2002,
+      "era": "berkshire",
+      "primary": "years/2002/letter.pdf",
+      "files": [
+        "years/2002/letter.pdf",
+        "years/2002/note.html"
+      ],
+      "formats": [
+        "html",
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2003,
+      "era": "berkshire",
+      "primary": "years/2003/letter.pdf",
+      "files": [
+        "years/2003/letter.pdf",
+        "years/2003/note.html"
+      ],
+      "formats": [
+        "html",
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2004,
+      "era": "berkshire",
+      "primary": "years/2004/letter.pdf",
+      "files": [
+        "years/2004/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2005,
+      "era": "berkshire",
+      "primary": "years/2005/letter.pdf",
+      "files": [
+        "years/2005/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2006,
+      "era": "berkshire",
+      "primary": "years/2006/letter.pdf",
+      "files": [
+        "years/2006/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2007,
+      "era": "berkshire",
+      "primary": "years/2007/letter.pdf",
+      "files": [
+        "years/2007/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2008,
+      "era": "berkshire",
+      "primary": "years/2008/letter.pdf",
+      "files": [
+        "years/2008/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2009,
+      "era": "berkshire",
+      "primary": "years/2009/letter.pdf",
+      "files": [
+        "years/2009/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2010,
+      "era": "berkshire",
+      "primary": "years/2010/letter.pdf",
+      "files": [
+        "years/2010/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2011,
+      "era": "berkshire",
+      "primary": "years/2011/letter.pdf",
+      "files": [
+        "years/2011/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2012,
+      "era": "berkshire",
+      "primary": "years/2012/letter.pdf",
+      "files": [
+        "years/2012/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2013,
+      "era": "berkshire",
+      "primary": "years/2013/letter.pdf",
+      "files": [
+        "years/2013/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2014,
+      "era": "berkshire",
+      "primary": "years/2014/letter.pdf",
+      "files": [
+        "years/2014/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2015,
+      "era": "berkshire",
+      "primary": "years/2015/letter.pdf",
+      "files": [
+        "years/2015/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2016,
+      "era": "berkshire",
+      "primary": "years/2016/letter.pdf",
+      "files": [
+        "years/2016/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2017,
+      "era": "berkshire",
+      "primary": "years/2017/letter.pdf",
+      "files": [
+        "years/2017/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2018,
+      "era": "berkshire",
+      "primary": "years/2018/letter.pdf",
+      "files": [
+        "years/2018/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2019,
+      "era": "berkshire",
+      "primary": "years/2019/letter.pdf",
+      "files": [
+        "years/2019/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2020,
+      "era": "berkshire",
+      "primary": "years/2020/letter.pdf",
+      "files": [
+        "years/2020/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2021,
+      "era": "berkshire",
+      "primary": "years/2021/letter.pdf",
+      "files": [
+        "years/2021/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2022,
+      "era": "berkshire",
+      "primary": "years/2022/letter.pdf",
+      "files": [
+        "years/2022/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2023,
+      "era": "berkshire",
+      "primary": "years/2023/letter.pdf",
+      "files": [
+        "years/2023/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2024,
+      "era": "berkshire",
+      "primary": "years/2024/letter.pdf",
+      "files": [
+        "years/2024/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    },
+    {
+      "year": 2025,
+      "era": "berkshire",
+      "primary": "years/2025/letter.pdf",
+      "files": [
+        "years/2025/letter.pdf"
+      ],
+      "formats": [
+        "pdf"
+      ],
+      "source": "https://www.berkshirehathaway.com/letters/letters.html"
+    }
+  ]
+}

@@ -1,12 +1,5 @@
-__pycache__/
-*.py[cod]
-.venv/
-venv/
 .env
-backend/.env
-backend/data/*
-!backend/data/.gitkeep
-backend/.pytest_cache/
-.pytest_cache/
-*.egg-info/
+.venv/
+__pycache__/
+*.pyc
 .DS_Store
