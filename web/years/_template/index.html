@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--
+    新年手搓流程
+    1. 复制本目录为 web/years/YYYY/
+    2. 改 meta.json（year / title / lede / blurb / prev / next / status）
+       以及主线字段：dow_display / partnership_display / aum_display / age / market_mood
+    3. 改本文件里的标题、导读、中文、英文；情景卡内保留 <div data-thread-metrics></div>
+    4. 术语优先写：<button class="term" data-term="workout">work-out</button>
+       释义在 web/assets/glossary.json；若要本年特供，可再加 data-term-title / data-term-body 覆盖
+    5. 组件类名：
+       .era-context  时代情景卡
+       .say-plain    白话翻译
+       .annotate     原文旁注
+       .term         可点术语
+       .figure       图示区
+    6. python3 web/tools/sync_catalog.py  → 更新首页目录
+  -->
+  <title>YYYY · Buffett Letter</title>
+  <meta name="description" content="巴菲特股东信 YYYY：导读、中文译文与英文原文。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/letter.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("buffett-letter-theme");
+        if (t !== "light" && t !== "dark") {
+          t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-year="YYYY" data-era="partnership" data-view="guide">
+  <header class="site-header">
+    <a class="brand" href="../../index.html">Buffett Letters<span>Partnership &amp; Berkshire</span></a>
+    <div class="header-tools">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="切换到夜间模式">
+        <span class="when-light">夜间</span>
+        <span class="when-dark">日间</span>
+      </button>
+      <div class="era-pill">Partnership era</div>
+    </div>
+  </header>
+
+  <section class="letter-hero" aria-label="信件导言">
+    <p class="hero-year" aria-hidden="true">YYYY</p>
+    <h1 class="hero-title">标题</h1>
+    <p class="hero-lede">一句话导语：当年最值得记住的事。</p>
+    <div class="hero-actions">
+      <a class="btn" href="#reading" data-goto-view="guide">开始导读</a>
+      <a class="btn btn-ghost" href="#reading" data-goto-view="zh">直接看中文</a>
+    </div>
+  </section>
+
+  <div class="view-bar" id="reading">
+    <div class="view-bar-inner">
+      <div class="view-switch" role="tablist" aria-label="阅读模式">
+        <button type="button" role="tab" data-view="guide" aria-selected="true">导读</button>
+        <button type="button" role="tab" data-view="zh" aria-selected="false">中文</button>
+        <button type="button" role="tab" data-view="en" aria-selected="false">英文</button>
+        <button type="button" role="tab" data-view="split" aria-selected="false">中英对照</button>
+      </div>
+      <div class="year-meta">Warren E. Buffett · Omaha · YYYY</div>
+    </div>
+  </div>
+
+  <div class="letter-stage">
+    <article class="panel panel-guide is-active" aria-label="图文导读">
+      <p class="panel-kicker">Illustrated guide</p>
+      <h2 class="panel-heading">导读主标题</h2>
+      <div class="guide-body">
+        <aside class="era-context" aria-label="时代情景">
+          <p class="era-context-label">Time &amp; place</p>
+          <div data-thread-metrics></div>
+          <h3>先站回 YYYY</h3>
+          <dl class="era-grid">
+            <div>
+              <dt>他是谁</dt>
+              <dd>…</dd>
+            </div>
+            <div>
+              <dt>钱与规模</dt>
+              <dd>…</dd>
+            </div>
+            <div>
+              <dt>市场气氛</dt>
+              <dd>…</dd>
+            </div>
+            <div>
+              <dt>写信对象</dt>
+              <dd>…</dd>
+            </div>
+          </dl>
+          <p class="era-context-foot">用一句话告诉读者：该用什么心态读这封信。</p>
+        </aside>
+        <p class="term-tip">下文带虚线的词可点击，查看释义（来自共享术语表）。</p>
+
+        <section class="guide-section">
+          <h3>小节标题</h3>
+          <p>正文…可用 <button class="term" data-term="workout">work-out</button>。</p>
+          <aside class="say-plain">
+            <span class="say-plain-label">白话</span>
+            <p>把难句翻译成今天的人一听就懂的话。</p>
+          </aside>
+        </section>
+      </div>
+    </article>
+
+    <article class="panel panel-zh" aria-label="中文译文">
+      <p class="panel-kicker">中文译文</p>
+      <h2 class="panel-heading">中文标题</h2>
+      <div class="original-body">
+        <div class="original-meta">
+          <strong>沃伦·E·巴菲特</strong>
+          出处说明
+        </div>
+        <aside class="annotate">
+          <span class="annotate-label">旁注</span>
+          <p>帮助理解某一段的意图。</p>
+        </aside>
+        <h2>第一节</h2>
+        <p>译文…</p>
+      </div>
+    </article>
+
+    <article class="panel panel-en" aria-label="英文原文">
+      <p class="panel-kicker">Original letter</p>
+      <h2 class="panel-heading">English title</h2>
+      <div class="original-body">
+        <div class="original-meta">
+          <strong>Warren E. Buffett</strong>
+          Source note
+        </div>
+        <h2>Section</h2>
+        <p>Original text…</p>
+      </div>
+    </article>
+  </div>
+
+  <nav class="year-pager" aria-label="相邻年份">
+    <!-- 与 meta.json 的 prev / next 保持一致 -->
+    <a href="../PREV/index.html"><span>Prev</span>← PREV</a>
+    <a class="next" href="../NEXT/index.html"><span>Next</span>NEXT →</a>
+  </nav>
+
+  <footer class="site-footer">
+    仅供个人学习研究，不构成投资建议。
+  </footer>
+
+  <script src="../../assets/js/letter.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "year": 1960,
+  "era": "partnership",
+  "era_label": "Partnership era",
+  "status": "ready",
+  "title": "Sanborn Map：一笔 35% 重仓如何「竣工」",
+  "lede": "道指含息约 −6.3%，七只全年合伙约 +22.8%。上年那笔神秘重仓揭开面纱并完成拆分：地图业务与投资组合分离——控制型投资第一次被完整讲成故事。",
+  "blurb": "熊市超额 · Sanborn · 合伙 +22.8%",
+  "prev": 1959,
+  "next": 1961,
+  "age": "29–30",
+  "dow_display": "−6.3%",
+  "dow_detail": "含股息 · 679 → 616（年表约 −6.2%）",
+  "partnership_display": "+22.8%",
+  "partnership_detail": "七只全年合伙；年表同为 +22.8%，LP 约 +18.6%",
+  "aum_display": "规模未披露",
+  "aum_detail": "七只全年合伙；Sanborn 曾约占净资产 35%；信中无美元总额",
+  "market_mood": "工业平均下跌；多数基金反而跑赢道指（约 ±5%）",
+  "thread_note": "四年累计合伙约 +140.6% vs 道指约 +42.6%；他开始谈合并多只合伙，并把高尔夫「打帕」写成考核哲学。"
+}

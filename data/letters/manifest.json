@@ -6,11 +6,14 @@
     "meta/": "Source index pages and this manifest"
   },
   "coverage": {
-    "from": 1957,
+    "from": 1956,
     "to": 2025,
-    "years_count": 69,
+    "years_count": 70,
     "missing": [
       2026
+    ],
+    "incomplete": [
+      1956
     ]
   },
   "copyright_note": "Official Berkshire letters are copyrighted; partnership/early material from public archives. Personal/research use only.",
@@ -19,6 +22,19 @@
     "compilations/berkshire-1965-2012.epub"
   ],
   "years": [
+    {
+      "year": 1956,
+      "era": "partnership",
+      "primary": "years/1956/letter.md",
+      "files": [
+        "years/1956/letter.md",
+        "years/1956/agreement.md"
+      ],
+      "formats": [
+        "md"
+      ],
+      "notes": "First annual letter full text not publicly recovered; letter.md holds known excerpt only. agreement.md is the May 1956 Certificate of Limited Partnership."
+    },
     {
       "year": 1957,
       "era": "partnership",

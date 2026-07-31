@@ -1,0 +1,20 @@
+{
+  "year": "YYYY",
+  "era": "partnership",
+  "era_label": "Partnership era",
+  "status": "wip",
+  "title": "标题",
+  "lede": "一句话导语",
+  "blurb": "目录上显示的短摘要",
+  "prev": null,
+  "next": null,
+  "age": "",
+  "dow_display": "",
+  "dow_detail": "",
+  "partnership_display": "",
+  "partnership_detail": "",
+  "aum_display": "",
+  "aum_detail": "",
+  "market_mood": "",
+  "thread_note": ""
+}
