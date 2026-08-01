@@ -4,23 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!--
-    新年手搓流程
-    1. 复制本目录为 web/years/YYYY/
-    2. 改 meta.json（year / title / lede / blurb / prev / next / status）
-       以及主线字段：dow_display / partnership_display / aum_display / age / market_mood
-    3. 改本文件里的标题、导读、中文（须忠实 data/letters 英文源，不增删改）；情景卡内保留 <div data-thread-metrics></div>
-    4. 术语优先写：<button class="term" data-term="workout">work-out</button>
-       释义在 web/assets/glossary.json；若要本年特供，可再加 data-term-title / data-term-body 覆盖
-    5. 组件类名：
-       .era-context  时代情景卡
-       .say-plain    白话翻译
-       .annotate     原文旁注
-       .term         可点术语
-       .figure       图示区
-    6. python3 web/tools/sync_catalog.py  → 更新首页目录
+    新年手搓：先读项目 Skill `.cursor/skills/letter-year-page/SKILL.md`
+    校验：python3 .cursor/skills/letter-year-page/scripts/validate_year.py YYYY
+    目录同步：python3 web/tools/sync_catalog.py
+    目录内只保留 index.html + meta.json；中文须忠实 data/letters 英文源。
+    形态：信息完整的最易读解读 + 折叠忠实译文（见 years/1964；易读≠摘要）
   -->
   <title>YYYY · Buffett Letter</title>
-  <meta name="description" content="巴菲特股东信 YYYY：导读与中文译文。" />
+  <meta name="description" content="巴菲特股东信 YYYY：易读解读与中文译文。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
@@ -37,7 +28,7 @@
     })();
   </script>
 </head>
-<body data-year="YYYY" data-era="partnership" data-view="guide">
+<body data-year="YYYY" data-era="partnership" data-view="easy" data-easy-only="true">
   <header class="site-header">
     <a class="brand" href="../../index.html">Buffett Letters<span>Partnership &amp; Berkshire</span></a>
     <div class="header-tools">
@@ -49,85 +40,60 @@
     </div>
   </header>
 
-  <section class="letter-hero" aria-label="信件导言">
+  <section class="letter-hero letter-hero-compact" aria-label="信件导言">
     <p class="hero-year" aria-hidden="true">YYYY</p>
-    <h1 class="hero-title">标题</h1>
-    <p class="hero-lede">一句话导语：当年最值得记住的事。</p>
-    <div class="hero-actions">
-      <a class="btn" href="#reading" data-goto-view="guide">开始导读</a>
-      <a class="btn btn-ghost" href="#reading" data-goto-view="zh">直接看中文</a>
-    </div>
+    <h1 class="hero-title">标题（与 meta.title 一致）</h1>
+    <p class="hero-lede">导语（与 meta.lede 一致）</p>
   </section>
 
-  <div class="view-bar" id="reading">
+  <div class="view-bar view-bar-meta-only" id="reading">
     <div class="view-bar-inner">
-      <div class="view-switch" role="tablist" aria-label="阅读模式">
-        <button type="button" role="tab" data-view="guide" aria-selected="true">导读</button>
-        <button type="button" role="tab" data-view="zh" aria-selected="false">中文</button>
-      </div>
-      <div class="year-meta">Warren E. Buffett · Omaha · YYYY</div>
+      <div class="year-meta">Buffett Partnership, Ltd. · 写于 YYYY-MM-DD · 易读解读</div>
     </div>
   </div>
 
   <div class="letter-stage">
-    <article class="panel panel-guide is-active" aria-label="图文导读">
-      <p class="panel-kicker">Illustrated guide</p>
-      <h2 class="panel-heading">导读主标题</h2>
-      <div class="guide-body">
-        <aside class="era-context" aria-label="时代情景">
-          <p class="era-context-label">Time &amp; place</p>
+    <article class="panel panel-easy is-active" aria-label="易读解读">
+      <div class="easy-body">
+        <aside class="era-context" aria-label="这一年">
+          <p class="era-context-label">YYYY at a glance</p>
           <div data-thread-metrics></div>
-          <h3>先站回 YYYY</h3>
-          <dl class="era-grid">
-            <div>
-              <dt>他是谁</dt>
-              <dd>…</dd>
-            </div>
-            <div>
-              <dt>钱与规模</dt>
-              <dd>…</dd>
-            </div>
-            <div>
-              <dt>市场气氛</dt>
-              <dd>…</dd>
-            </div>
-            <div>
-              <dt>写信对象</dt>
-              <dd>…</dd>
-            </div>
-          </dl>
-          <p class="era-context-foot">用一句话告诉读者：该用什么心态读这封信。</p>
         </aside>
-        <p class="term-tip">下文带虚线的词可点击，查看释义（来自共享术语表）。</p>
 
-        <section class="guide-section">
-          <h3>小节标题</h3>
-          <p>正文…可用 <button class="term" data-term="workout">work-out</button>。</p>
+        <!-- 易读须覆盖年终信每一节 + 全部表格；可读≠删减 -->
+        <section class="easy-block">
+          <p class="easy-kicker">开场 / 对应原文第一节</p>
+          <h2>小节标题</h2>
+          <p>短段正文…可用 <button class="term" data-term="workout">work-out</button>。</p>
+          <div class="stat-row">…</div>
+          <table class="nums">…信中表格整表放入…</table>
           <aside class="say-plain">
             <span class="say-plain-label">白话</span>
-            <p>把难句翻译成今天的人一听就懂的话。</p>
+            <p>把难句说成今天一听就懂的话（不替代上面的完整信息）。</p>
           </aside>
+        </section>
+
+        <section class="easy-block easy-block-end">
+          <p class="easy-kicker">杂项</p>
+          <h2>收束</h2>
+          <p>人员、规模、政策变更等杂项也要写全。</p>
+          <p class="easy-note">下方译文仅供核对措辞，默认不必展开。</p>
         </section>
       </div>
     </article>
 
-    <article class="panel panel-zh" aria-label="中文译文">
-      <p class="panel-kicker">中文译文</p>
-      <h2 class="panel-heading">中文标题</h2>
-      <div class="original-body">
+    <details class="source-drawer" id="full-zh">
+      <summary>完整译文（供核对，默认不必展开）</summary>
+      <div class="original-body source-drawer-body">
         <div class="original-meta">
           <strong>沃伦·E·巴菲特</strong>
-          出处说明
+          出处说明 · 忠实译自英文原文
         </div>
-        <aside class="annotate">
-          <span class="annotate-label">旁注</span>
-          <p>帮助理解某一段的意图。</p>
-        </aside>
         <h2>第一节</h2>
-        <p>译文…</p>
+        <p>译文…（须覆盖年终信全部章节与表格）</p>
       </div>
-    </article>
-</div>
+    </details>
+  </div>
 
   <nav class="year-pager" aria-label="相邻年份">
     <!-- 与 meta.json 的 prev / next 保持一致 -->
@@ -136,7 +102,7 @@
   </nav>
 
   <footer class="site-footer">
-    仅供个人学习研究，不构成投资建议。
+    本页为易读解读；折叠内为学习用忠实译文，不构成投资建议。
   </footer>
 
   <script src="../../assets/js/letter.js"></script>

@@ -6,7 +6,7 @@
   <title>Buffett Letters</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/letter.css" />
   <script>
     (function () {
@@ -33,17 +33,21 @@
   </header>
 
   <section class="letter-hero catalog-hero">
-    <h1 class="hero-title">按年份阅读股东信</h1>
-    <p class="hero-lede">一条主线串起来：道指、合伙业绩与规模。每年单独打磨导读与译文，点进时间轴继续读。</p>
-    <p class="catalog-meta" data-catalog-meta></p>
+    <h1 class="hero-title">Buffett Letters</h1>
+    <p class="hero-lede">从合伙年代读起：折线看累计差距，目录选故事。每年一封最易读解读，不用啃长文。</p>
+    <div class="catalog-hero-row">
+      <p class="catalog-meta" data-catalog-meta></p>
+      <a class="catalog-continue" data-catalog-continue hidden href="#">从最新一年继续 →</a>
+    </div>
   </section>
 
-  <div data-timeline data-catalog="catalog.json" aria-label="年度主线时间轴"></div>
+  <div class="story-chart" data-story-chart aria-label="道指与合伙累计回报折线图"></div>
+  <div data-timeline aria-label="年度主线时间轴"></div>
   <div class="catalog-root" data-catalog="catalog.json"></div>
 
   <footer class="site-footer">
-    新的一年：复制 <code>years/_template</code> → 填内容与 <code>meta.json</code> → 运行
-    <code>python3 web/tools/sync_catalog.py</code>
+    <p>解读为学习辅助，译文供核对；不构成投资建议。</p>
+    <p class="site-footer-note">维护：更新 <code>years/YYYY/meta.json</code> 后运行 <code>python3 web/tools/sync_catalog.py</code></p>
   </footer>
   <script src="assets/js/letter.js"></script>
 </body>

@@ -1,6 +1,7 @@
 /**
  * Buffett Letters — year page + index interactions
- * Views: guide | zh
+ * Views: easy | deck | glance | guide | zh
+ *   easy = 最易读连续解读（1964+ 默认）；deck/glance 为旧实验
  * Theme: light | dark
  * Terms: data-term="id" → assets/glossary.json (local data-term-title/body override)
  */
@@ -9,10 +10,13 @@
   const body = document.body;
   const buttons = document.querySelectorAll(".view-switch [data-view]");
   const panels = {
+    easy: document.querySelector(".panel-easy"),
+    deck: document.querySelector(".panel-deck"),
+    glance: document.querySelector(".panel-glance"),
     guide: document.querySelector(".panel-guide"),
     zh: document.querySelector(".panel-zh"),
   };
-  const VALID = ["guide", "zh"];
+  const VALID = ["easy", "deck", "glance", "guide", "zh"];
   const THEME_KEY = "buffett-letter-theme";
   const VIEW_KEY = "buffett-letter-view";
 
@@ -41,9 +45,28 @@
     } catch (_) {}
   }
 
+  function defaultView() {
+    if (panels.easy) return "easy";
+    if (panels.deck) return "deck";
+    if (panels.glance) return "glance";
+    if (panels.guide) return "guide";
+    return "zh";
+  }
+
   function normalize(view) {
     if (view === "original" || view === "en" || view === "split") return "zh";
-    return VALID.includes(view) ? view : "guide";
+    if (view === "deck" || view === "glance") {
+      if (panels.easy && !panels[view]) return "easy";
+    }
+    if (view === "glance" && !panels.glance && panels.deck) return "deck";
+    if (view === "deck" && !panels.deck) {
+      return panels.glance ? "glance" : defaultView();
+    }
+    if (view === "easy" && !panels.easy) return defaultView();
+    if (view === "glance" && !panels.glance) return defaultView();
+    if (view === "guide" && !panels.guide) return defaultView();
+    if (VALID.includes(view) && panels[view]) return view;
+    return defaultView();
   }
 
   function setView(view) {
@@ -56,6 +79,10 @@
 
     Object.values(panels).forEach((p) => p?.classList.remove("is-active"));
     if (panels[next]) panels[next].classList.add("is-active");
+
+    if (next === "deck" && window.__buffettDeck) {
+      window.__buffettDeck.sync();
+    }
 
     try {
       localStorage.setItem(VIEW_KEY, next);
@@ -84,11 +111,176 @@
     });
   });
 
-  let saved = "guide";
+  let saved = defaultView();
   try {
-    saved = localStorage.getItem(VIEW_KEY) || "guide";
+    const raw = localStorage.getItem(VIEW_KEY);
+    if (raw) saved = raw;
   } catch (_) {}
-  if (buttons.length) setView(saved);
+  // Easy/deck-only pages have no view tabs; keep the primary reading panel active.
+  if (
+    buttons.length ||
+    body.getAttribute("data-easy-only") === "true" ||
+    body.getAttribute("data-deck-only") === "true"
+  ) {
+    const forced = body.getAttribute("data-easy-only") === "true"
+      ? "easy"
+      : body.getAttribute("data-deck-only") === "true"
+        ? "deck"
+        : saved;
+    setView(forced);
+  }
+
+  /* —— Deck (PPT / 分镜翻页) —— */
+  (function initDeck() {
+    const rootEl = document.querySelector("[data-deck]");
+    if (!rootEl) return;
+
+    const slides = [...rootEl.querySelectorAll("[data-deck-slide]")];
+    if (!slides.length) return;
+
+    const prevBtn = rootEl.querySelector("[data-deck-prev]");
+    const nextBtn = rootEl.querySelector("[data-deck-next]");
+    const curEl = rootEl.querySelector("[data-deck-current]");
+    const totalEl = rootEl.querySelector("[data-deck-total]");
+    const dotsHost = rootEl.querySelector("[data-deck-dots]");
+    let index = 0;
+    let touchX = null;
+
+    if (totalEl) totalEl.textContent = String(slides.length);
+
+    if (dotsHost) {
+      dotsHost.innerHTML = "";
+      slides.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "deck-dot";
+        b.setAttribute("aria-label", "第 " + (i + 1) + " 页");
+        b.addEventListener("click", () => go(i));
+        dotsHost.appendChild(b);
+      });
+    }
+
+    function go(i) {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((s, n) => {
+        s.classList.toggle("is-active", n === index);
+        s.setAttribute("aria-hidden", String(n !== index));
+      });
+      if (curEl) curEl.textContent = String(index + 1);
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        const last = index === slides.length - 1;
+        const deckOnly = body.getAttribute("data-deck-only") === "true";
+        nextBtn.textContent = last
+          ? deckOnly || !panels.zh
+            ? "再看一遍"
+            : "读全文 →"
+          : "下一页";
+      }
+      if (dotsHost) {
+        [...dotsHost.children].forEach((d, n) => {
+          d.classList.toggle("is-active", n === index);
+        });
+      }
+      // animate bars if slide contains them
+      const svg = slides[index].querySelector("[data-animate-bars]");
+      if (svg && !svg.dataset.deckAnimated) {
+        svg.dataset.deckAnimated = "1";
+        // trigger intersection-style grow by resetting heights briefly
+        svg.querySelectorAll("[data-bar]").forEach((bar) => {
+          const h = Number(bar.getAttribute("height")) || 0;
+          const y = Number(bar.getAttribute("data-y") || bar.getAttribute("y"));
+          bar.setAttribute("height", "0");
+          bar.setAttribute("y", String(y + h));
+          requestAnimationFrame(() => {
+            bar.style.transition = "height 0.7s cubic-bezier(0.22,1,0.36,1), y 0.7s cubic-bezier(0.22,1,0.36,1)";
+            bar.setAttribute("height", String(h));
+            bar.setAttribute("y", String(y));
+          });
+        });
+      }
+    }
+
+    function next() {
+      if (index >= slides.length - 1) {
+        const deckOnly = body.getAttribute("data-deck-only") === "true";
+        if (!deckOnly && panels.zh) {
+          setView("zh");
+          document
+            .getElementById("reading")
+            ?.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+        go(0);
+        return;
+      }
+      go(index + 1);
+    }
+
+    function prev() {
+      go(index - 1);
+    }
+
+    prevBtn?.addEventListener("click", prev);
+    nextBtn?.addEventListener("click", next);
+
+    document.addEventListener("keydown", (e) => {
+      if (body.dataset.view !== "deck") return;
+      if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+        e.preventDefault();
+        next();
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        prev();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        go(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        go(slides.length - 1);
+      }
+    });
+
+    rootEl.addEventListener(
+      "touchstart",
+      (e) => {
+        if (body.dataset.view !== "deck") return;
+        touchX = e.changedTouches[0].clientX;
+      },
+      { passive: true }
+    );
+    rootEl.addEventListener(
+      "touchend",
+      (e) => {
+        if (touchX === null || body.dataset.view !== "deck") return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        touchX = null;
+        if (Math.abs(dx) < 48) return;
+        if (dx < 0) next();
+        else prev();
+      },
+      { passive: true }
+    );
+
+    rootEl.querySelectorAll("[data-deck-goto]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const n = Number(el.getAttribute("data-deck-goto"));
+        if (!Number.isNaN(n)) {
+          e.preventDefault();
+          go(n);
+        }
+      });
+    });
+
+    window.__buffettDeck = {
+      sync() {
+        go(index);
+      },
+      go,
+    };
+    go(0);
+  })();
 
   /* —— Glossary —— */
   function glossaryUrl() {
@@ -347,7 +539,227 @@
 
   loadYearThread();
 
-  /* —— Index catalog + timeline —— */
+  /* —— Index catalog + timeline + cumulative chart —— */
+  function parseReturnPct(display) {
+    const s = String(display || "")
+      .replace(/,/g, "")
+      .replace(/\s+/g, "")
+      .trim();
+    const m = s.match(/^([+＋−\-－]?)(\d+(?:\.\d+)?)%/);
+    if (!m) return null;
+    const neg = m[1] === "−" || m[1] === "-" || m[1] === "－";
+    return (neg ? -1 : 1) * parseFloat(m[2]);
+  }
+
+  function buildCumulativeSeries(years) {
+    const points = [];
+    let dowIdx = 1;
+    let partIdx = 1;
+    years.forEach((y) => {
+      const d = parseReturnPct(y.dow_display);
+      const p = parseReturnPct(y.partnership_display);
+      if (d === null || p === null) return;
+      dowIdx *= 1 + d / 100;
+      partIdx *= 1 + p / 100;
+      points.push({
+        year: y.year,
+        href: y.href,
+        status: y.status,
+        dowCum: (dowIdx - 1) * 100,
+        partCum: (partIdx - 1) * 100,
+        dowYear: d,
+        partYear: p,
+      });
+    });
+    return points;
+  }
+
+  function renderStoryChart(years, mount) {
+    if (!mount) return;
+    const points = buildCumulativeSeries(years);
+    mount.innerHTML = "";
+    mount.className = "story-chart";
+    if (points.length < 2) {
+      mount.hidden = true;
+      return;
+    }
+    mount.hidden = false;
+
+    const head = document.createElement("div");
+    head.className = "story-chart-head";
+    const title = document.createElement("h2");
+    title.className = "story-chart-title";
+    title.textContent = "累计回报";
+    const note = document.createElement("p");
+    note.className = "story-chart-note";
+    note.textContent =
+      "自有完整年回报数据起复利累计（跳过无百分比的年份）。点击圆点进入该年。";
+    const legend = document.createElement("div");
+    legend.className = "story-chart-legend";
+    legend.innerHTML =
+      '<span class="is-dow">道指</span><span class="is-partnership">合伙</span>';
+    head.appendChild(title);
+    head.appendChild(note);
+    head.appendChild(legend);
+    mount.appendChild(head);
+
+    const W = 720;
+    const H = 260;
+    const pad = { t: 18, r: 18, b: 36, l: 52 };
+    const innerW = W - pad.l - pad.r;
+    const innerH = H - pad.t - pad.b;
+    const vals = points.reduce(
+      (acc, pt) => {
+        acc.push(pt.dowCum, pt.partCum);
+        return acc;
+      },
+      [0]
+    );
+    let minV = Math.min.apply(null, vals);
+    let maxV = Math.max.apply(null, vals);
+    if (minV > 0) minV = 0;
+    if (maxV < 0) maxV = 0;
+    const span = maxV - minV || 1;
+    const xAt = (i) =>
+      pad.l + (points.length === 1 ? innerW / 2 : (i / (points.length - 1)) * innerW);
+    const yAt = (v) => pad.t + ((maxV - v) / span) * innerH;
+
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute(
+      "aria-label",
+      "道指与合伙累计回报折线，自 " +
+        points[0].year +
+        " 至 " +
+        points[points.length - 1].year
+    );
+
+    function el(name, attrs) {
+      const node = document.createElementNS(svgNS, name);
+      Object.keys(attrs).forEach((k) => node.setAttribute(k, attrs[k]));
+      return node;
+    }
+
+    // zero line
+    const zeroY = yAt(0);
+    svg.appendChild(
+      el("line", {
+        class: "story-chart-zero",
+        x1: String(pad.l),
+        y1: String(zeroY),
+        x2: String(W - pad.r),
+        y2: String(zeroY),
+      })
+    );
+
+    // y ticks
+    const tickCount = 4;
+    for (let t = 0; t <= tickCount; t++) {
+      const v = minV + (span * t) / tickCount;
+      const y = yAt(v);
+      svg.appendChild(
+        el("line", {
+          class: "story-chart-grid",
+          x1: String(pad.l),
+          y1: String(y),
+          x2: String(W - pad.r),
+          y2: String(y),
+        })
+      );
+      const label = el("text", {
+        class: "story-chart-axis",
+        x: String(pad.l - 8),
+        y: String(y + 4),
+        "text-anchor": "end",
+      });
+      label.textContent = (v >= 0 ? "+" : "") + Math.round(v) + "%";
+      svg.appendChild(label);
+    }
+
+    function poly(key, className) {
+      const d = points
+        .map((pt, i) => xAt(i) + "," + yAt(pt[key]))
+        .join(" ");
+      svg.appendChild(el("polyline", { class: className, points: d, fill: "none" }));
+    }
+    poly("dowCum", "story-chart-line is-dow");
+    poly("partCum", "story-chart-line is-partnership");
+
+    points.forEach((pt, i) => {
+      const x = xAt(i);
+      const yearLabel = el("text", {
+        class: "story-chart-year",
+        x: String(x),
+        y: String(H - 12),
+        "text-anchor": "middle",
+      });
+      yearLabel.textContent = String(pt.year);
+      svg.appendChild(yearLabel);
+
+      [
+        { key: "dowCum", cls: "is-dow", name: "道指" },
+        { key: "partCum", cls: "is-partnership", name: "合伙" },
+      ].forEach((series) => {
+        const cy = yAt(pt[series.key]);
+        const tip =
+          pt.year +
+          " " +
+          series.name +
+          " 累计 " +
+          (pt[series.key] >= 0 ? "+" : "") +
+          pt[series.key].toFixed(1) +
+          "%";
+        if (pt.href && pt.status === "ready") {
+          const a = document.createElementNS(svgNS, "a");
+          a.setAttribute("href", pt.href);
+          a.setAttributeNS("http://www.w3.org/1999/xlink", "href", pt.href);
+          const c = el("circle", {
+            class: "story-chart-dot " + series.cls,
+            cx: String(x),
+            cy: String(cy),
+            r: "4.5",
+          });
+          const titleEl = document.createElementNS(svgNS, "title");
+          titleEl.textContent = tip;
+          c.appendChild(titleEl);
+          a.appendChild(c);
+          svg.appendChild(a);
+        } else {
+          const c = el("circle", {
+            class: "story-chart-dot " + series.cls,
+            cx: String(x),
+            cy: String(cy),
+            r: "4",
+          });
+          const titleEl = document.createElementNS(svgNS, "title");
+          titleEl.textContent = tip;
+          c.appendChild(titleEl);
+          svg.appendChild(c);
+        }
+      });
+    });
+
+    const wrap = document.createElement("div");
+    wrap.className = "story-chart-svg-wrap";
+    wrap.appendChild(svg);
+    mount.appendChild(wrap);
+
+    const end = points[points.length - 1];
+    const foot = document.createElement("p");
+    foot.className = "story-chart-foot";
+    foot.textContent =
+      "至 " +
+      end.year +
+      "：道指累计约 +" +
+      end.dowCum.toFixed(1) +
+      "%，合伙累计约 +" +
+      end.partCum.toFixed(1) +
+      "%";
+    mount.appendChild(foot);
+  }
+
   function renderTimeline(years, mount) {
     if (!mount || !years.length) return;
     mount.innerHTML = "";
@@ -397,9 +809,14 @@
     mount.appendChild(track);
   }
 
-  const indexList = document.querySelector("[data-catalog]");
+  /* Prefer .catalog-root so timeline ([data-timeline]) is never wiped by the list. */
+  const indexList =
+    document.querySelector(".catalog-root[data-catalog]") ||
+    document.querySelector("[data-catalog]:not([data-timeline])") ||
+    document.querySelector("[data-catalog]");
   const timelineMount = document.querySelector("[data-timeline]");
-  if (indexList || timelineMount) {
+  const chartMount = document.querySelector("[data-story-chart]");
+  if (indexList || timelineMount || chartMount) {
     const url =
       (indexList && indexList.getAttribute("data-catalog")) ||
       (timelineMount && timelineMount.getAttribute("data-catalog")) ||
@@ -408,6 +825,7 @@
       .then((r) => r.json())
       .then((catalog) => {
         const years = catalog.years || [];
+        if (chartMount) renderStoryChart(years, chartMount);
         if (timelineMount) renderTimeline(years, timelineMount);
 
         if (!indexList) return;
@@ -447,25 +865,48 @@
           years
             .filter((y) => (y.era || "other") === era.key)
             .forEach((y) => {
-              const a = document.createElement("a");
-              a.href = y.href;
               const ready = y.status === "ready";
-              if (ready) a.classList.add("is-ready");
-              else {
-                a.classList.add("is-stub");
-                if (y.status === "stub") a.setAttribute("aria-disabled", "true");
+              const a = document.createElement(ready || y.status === "wip" ? "a" : "div");
+              if (a.tagName === "A") a.href = y.href;
+              a.className =
+                "index-item" +
+                (ready ? " is-ready" : "") +
+                (y.status === "stub" ? " is-stub" : "") +
+                (y.status === "wip" ? " is-wip" : "");
+
+              const yearEl = document.createElement("span");
+              yearEl.className = "index-year";
+              yearEl.textContent = String(y.year);
+              a.appendChild(yearEl);
+
+              const titleEl = document.createElement("span");
+              titleEl.className = "index-title";
+              if (ready || y.status === "wip") {
+                titleEl.textContent = y.title || y.blurb || "继续阅读";
+              } else {
+                titleEl.textContent = "待制作";
               }
-              a.innerHTML = String(y.year) + "<em></em>";
-              const em = a.querySelector("em");
-              const scoreBits = [];
-              if (y.dow_display) scoreBits.push("道指 " + y.dow_display);
-              if (y.partnership_display) scoreBits.push("合伙 " + y.partnership_display);
-              em.textContent =
-                scoreBits.join(" · ") ||
-                y.blurb ||
-                (ready ? "已完成" : y.status === "wip" ? "制作中" : "待制作");
+              a.appendChild(titleEl);
+
+              const em = document.createElement("em");
+              em.className = "index-blurb";
+              if (ready || y.status === "wip") {
+                const scoreBits = [];
+                if (y.dow_display) scoreBits.push("道指 " + y.dow_display);
+                if (y.partnership_display) {
+                  scoreBits.push("合伙 " + y.partnership_display);
+                }
+                em.textContent =
+                  y.blurb ||
+                  scoreBits.join(" · ") ||
+                  (ready ? "已完成" : "制作中");
+              } else {
+                em.textContent = "尚未开始";
+              }
+              a.appendChild(em);
+
               if (y.status === "stub") {
-                a.addEventListener("click", (e) => e.preventDefault());
+                a.setAttribute("aria-disabled", "true");
               }
               grid.appendChild(a);
             });
@@ -481,6 +922,25 @@
             " / " +
             (catalog.total || years.length) +
             " 年";
+        }
+
+        const cont = document.querySelector("[data-catalog-continue]");
+        if (cont) {
+          let latest = null;
+          for (let i = years.length - 1; i >= 0; i--) {
+            if (years[i].status === "ready" && years[i].href) {
+              latest = years[i];
+              break;
+            }
+          }
+          if (latest) {
+            cont.href = latest.href;
+            cont.hidden = false;
+            cont.textContent =
+              "从最新一年继续 · " + latest.year + " →";
+          } else {
+            cont.hidden = true;
+          }
         }
       })
       .catch(() => {
